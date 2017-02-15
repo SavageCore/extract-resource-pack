@@ -1,0 +1,22 @@
+@import url(http://fonts.googleapis.com/css?family=Roboto:900);
+
+* {
+	font-family: Roboto, segoe, sans-serif;
+}
+
+#wrapper {
+	margin: 40px auto 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+#fileDropBox {
+	/*margin-left: 100px;*/
+	width: 20em;
+	line-height: 10em;
+	border: 1px dashed gray;
+	text-align: center;
+	color: gray;
+	border-radius: 7px;
+}

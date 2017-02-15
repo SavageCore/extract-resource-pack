@@ -1,0 +1,17 @@
+language: node_js
+node_js:
+  - "6"
+os:
+- linux
+- osx
+dist: trusty
+sudo: required
+
+before_script:
+  - if [[ "$TRAVIS_OS_NAME" = "linux" ]]; then sudo apt-get install rpm; fi
+
+script:
+ - npm run test
+
+after_script:
+ - ./ci/travis.sh

@@ -1,0 +1,25 @@
+platform:
+- x64
+environment:
+  nodejs_version: "6"
+  GITHUB_TOKEN:
+    secure: s6dpRhIuHcYX7faKVrQRJn8a70ViX8pFYkPy4JCxUJqXWO75uYKad/Akaps21zhH
+cache:
+- '%APPDATA%\npm-cache'
+- '%USERPROFILE%\.electron'
+branches:
+  only:
+  - master
+
+install:
+- ps: Install-Product node $env:nodejs_version $env:platform
+- set PATH=%APPDATA%\npm;%PATH%
+- npm install
+
+test_script:
+- node --version
+- npm --version
+- npm test
+
+build_script:
+- ps: .\ci\appveyor.ps1

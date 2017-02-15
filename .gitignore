@@ -1,0 +1,5 @@
+node_modules
+assets/client.jar
+assets/default.zip
+releases/
+out/
