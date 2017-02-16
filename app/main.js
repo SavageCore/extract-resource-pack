@@ -1,23 +1,33 @@
 const path = require('path');
 const url = require('url');
 
-const electron = require('electron');
-
-const app = electron.app;
-const BrowserWindow = electron.BrowserWindow;
+const {
+app,
+BrowserWindow,
+} = require('electron');
 
 let mainWindow;
 
 function createWindow() {
-  mainWindow = new BrowserWindow({ width: 800, height: 300, frame: true });
+  mainWindow = new BrowserWindow({
+    width: 350,
+    height: 210,
+    frame: true,
+    backgroundColor: '#212121',
+    show: false,
+  });
   mainWindow.loadURL(url.format({
     pathname: path.join(__dirname, 'index.html'),
     protocol: 'file:',
     slashes: true,
   }));
-  mainWindow.webContents.openDevTools();
   mainWindow.on('closed', () => {
     mainWindow = null;
+  });
+  mainWindow.setMaximizable(false);
+  mainWindow.setMenu(null);
+  mainWindow.once('ready-to-show', () => {
+    mainWindow.show();
   });
 }
 

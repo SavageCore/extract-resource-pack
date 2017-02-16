@@ -2,18 +2,24 @@
 <html class="noselect">
 
 <head>
-    <meta charset="UTF-8">
-    <title>Minecraft Resource Pack Extractor by SavageCore</title>
-    <link rel="stylesheet" href="./style.css">
+	<meta charset="UTF-8">
+	<title>Minecraft Resource Pack Extractor by SavageCore</title>
+	<link rel="stylesheet" href="./style.css">
 </head>
 
 <body>
-	<div id="wrapper">
-	  <div id="fileDropBox">Drop client jar here</div>
+	<div class="box">
+		<div id="closeButton"></div>
+		<div class="row header">
+			Extract Resource Pack
+		</div>
+		<div class="row content">
+			<p id="statusBox">Drop client jar here</p>
+		</div>
 	</div>
 </body>
 <script>
-    require('./renderer.js');
+	require('./renderer.js');
 </script>
 
 </html>

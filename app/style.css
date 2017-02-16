@@ -1,22 +1,72 @@
-@import url(http://fonts.googleapis.com/css?family=Roboto:900);
-
-* {
-	font-family: Roboto, segoe, sans-serif;
+@font-face {
+	font-family: 'minecraftfont';
+	src: url('./fonts/minecraftfont.eot');
+	src: local('minecraftfont'), url('./fonts/minecraftfont.woff') format('woff'), url('./fonts/minecraftfont.ttf') format('truetype');
 }
 
-#wrapper {
-	margin: 40px auto 0;
+body,
+html {
+	height: 100%;
+	margin: 0;
+	font-family: minecraftfont, segoe, sans-serif;
+	background-color: #212121;
+	background-image: url('./img/background.png');
+}
+
+.box {
 	display: flex;
-	justify-content: center;
-	align-items: center;
+	flex-flow: column;
+	height: 100%;
 }
 
-#fileDropBox {
-	/*margin-left: 100px;*/
-	width: 20em;
-	line-height: 10em;
-	border: 1px dashed gray;
+.box .row.header {
+	flex: 0 1 auto;
+	background-color: #388E3C;
+	background-image: url('./img/header.png');
 	text-align: center;
-	color: gray;
-	border-radius: 7px;
+	height: 35px;
+	line-height: 35px;
+}
+
+.box .row.content {
+	flex: 1 1 auto;
+	color: #FAFAFA;
+	height: 100%;
+	padding: 0;
+	margin: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.loading:after {
+	display: inline-block;
+	animation: dotty steps(1,end) 1s infinite;
+	content: '';
+}
+@keyframes dotty {
+	0% {
+		content: '';
+	}
+
+	25% {
+		content: '.';
+	}
+
+	50% {
+		content: '..';
+	}
+
+	75% {
+		content: '...';
+	}
+
+	100% {
+		content: '';
+	}
+}
+
+.noselect {
+	cursor: default;
+	-webkit-user-select: none;
 }

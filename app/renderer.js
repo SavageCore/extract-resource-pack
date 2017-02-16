@@ -2,6 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const {
 app,
+shell,
 } = require('electron').remote;
 const JSZip = require('jszip');
 const walk = require('walk');
@@ -18,19 +19,28 @@ function ensureDirectoryExistence(filePath) {
 }
 
 function handleDragOver(e) {
-  e.stopPropagation(); // Do not allow the dragover event to bubble.
-  e.preventDefault(); // Prevent default dragover event behavior.
+  e.stopPropagation();
+  e.preventDefault();
+  const element = document.getElementById('statusBox');
+  element.innerText = 'Let it go!';
+}
+
+function handleDragLeave(e) {
+  e.stopPropagation();
+  e.preventDefault();
+  const element = document.getElementById('statusBox');
+  element.innerText = 'Drop client jar here';
 }
 
 function handleFileSelection(e) {
-  e.stopPropagation(); // Do not allow the drop event to bubble.
-  e.preventDefault(); // Prevent default drop event behavior.
+  e.stopPropagation();
+  e.preventDefault();
 
-  const inputFiles = e.dataTransfer.files; // Grab the list of files dragged to the drop box.
+  const inputFiles = e.dataTransfer.files;
 
   const newRP = new JSZip();
 
-  const element = document.getElementById('fileDropBox');
+  const element = document.getElementById('statusBox');
   element.innerText = 'Extracting from jar...';
 
   new JSZip.external.Promise((resolve, reject) => {
@@ -47,17 +57,15 @@ function handleFileSelection(e) {
       followLinks: false,
     });
     zip.folder('assets').forEach((relativePath, file) => {
-      // Extract all files to temp directory
+    // Extract all files to temp directory
       const dest = path.join(tmpPath, file.name);
       ensureDirectoryExistence(dest);
-      fs.writeFileSync(dest, file
-        .nodeStream()
-        .pipe(fs.createWriteStream(dest)),
-      );
+      fs.writeFileSync(dest, file.nodeStream().pipe(fs.createWriteStream(dest)));
     });
     // Walk directories
     folderWalker.on('directory', (root, stat, next) => {
-      element.innerText = 'Building resource pack...';
+      element.innerText = 'Building resource pack';
+      element.className += ' loading';
       const folder = newRP.folder(path.relative(`${app.getPath('temp')}/erp`, `${root}/${stat.name}`));
       // Walk the folder for files
       fs.readdir(`${root}/${stat.name}`, (err, files) => {
@@ -84,19 +92,22 @@ function handleFileSelection(e) {
       if (fs.existsSync(packimg)) {
         newRP.file('pack.png', fs.readFileSync(packimg));
       }
-      newRP
-      .generateNodeStream({
+      newRP.generateNodeStream({
         type: 'nodebuffer',
         streamFiles: true,
-      })
-      .pipe(fs.createWriteStream('assets/default.zip'))
-      .on('finish', () => {
+      }).pipe(fs.createWriteStream('default.zip')).on('finish', () => {
         element.innerText = 'Done!';
+        element.className = 'noselect';
+        shell.showItemInFolder(`${process.cwd()}/default_resourcepack.zip`);
+        setTimeout(() => {
+          element.innerText = 'Drop client jar here';
+        }, 3000);
       });
     });
   });
 }
 
 // Set up the file drag and drop listeners:
-document.getElementById('fileDropBox').addEventListener('dragover', handleDragOver, false);
-document.getElementById('fileDropBox').addEventListener('drop', handleFileSelection, false);
+document.getElementsByClassName('content')[0].addEventListener('dragover', handleDragOver, false);
+document.getElementsByClassName('content')[0].addEventListener('dragleave', handleDragLeave, false);
+document.getElementsByClassName('content')[0].addEventListener('drop', handleFileSelection, false);

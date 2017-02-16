@@ -1,6 +1,6 @@
 {
 	"name": "extract-resource-pack",
-	"version": "0.1.0",
+	"version": "0.1.1",
 	"description": "A tool to extract resource pack from Minecraft client",
 	"main": "./app/main.js",
 	"scripts": {
@@ -20,7 +20,7 @@
 		"extract"
 	],
 	"author": "SavageCore",
-	"license": "UNLICENSE",
+	"license": "Unlicense",
 	"bugs": {
 		"url": "https://github.com/SavageCore/extract-resource-pack/issues"
 	},
