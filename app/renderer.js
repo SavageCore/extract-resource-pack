@@ -47,6 +47,7 @@ function handleFileSelection(e) {
 	element.className += ' loading';
 
 	del.sync(`${app.getPath('temp')}/erp/`, {force: true});
+
 	element.innerText = 'Extracting from jar...';
 
 	new JSZip.external.Promise((resolve, reject) => {
@@ -59,16 +60,16 @@ function handleFileSelection(e) {
 		});
 	}).then(data => JSZip.loadAsync(data)).then(zip => {
 		const tmpPath = `${app.getPath('temp')}\\erp`;
-		const folderWalker = walk.walk(tmpPath, {
-			followLinks: false
-		});
 		zip.folder('assets').forEach((relativePath, file) => {
     // Extract all files to temp directory
 			const dest = path.join(tmpPath, file.name);
 			ensureDirectoryExistence(dest);
 			fs.writeFileSync(dest, file.nodeStream().pipe(fs.createWriteStream(dest)));
 		});
-    // Walk directories
+		const folderWalker = walk.walk(tmpPath, {
+			followLinks: false
+		});
+		// Walk directories
 		folderWalker.on('directory', (root, stat, next) => {
 			element.innerText = 'Building resource pack';
 			element.className += ' loading';
