@@ -6,6 +6,7 @@ shell
 } = require('electron').remote;
 const JSZip = require('jszip');
 const walk = require('walk');
+const del = require('del');
 
 /* global document */
 
@@ -41,6 +42,11 @@ function handleFileSelection(e) {
 	const newRP = new JSZip();
 
 	const element = document.getElementById('statusBox');
+
+	element.innerText = 'Clearing temp folder';
+	element.className += ' loading';
+
+	del.sync(`${app.getPath('temp')}/erp/`, {force: true});
 	element.innerText = 'Extracting from jar...';
 
 	new JSZip.external.Promise((resolve, reject) => {
