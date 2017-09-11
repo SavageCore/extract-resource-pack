@@ -8,7 +8,7 @@ dist: trusty
 sudo: required
 
 before_script:
-  - if [[ "$TRAVIS_OS_NAME" = "linux" ]]; then sudo apt-get install rpm; fi
+  - if [[ "$TRAVIS_OS_NAME" = "linux" ]]; then sudo apt-get install rpm fakeroot dpkg; fi
 
 script:
  - npm run test
