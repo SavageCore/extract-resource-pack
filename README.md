@@ -4,6 +4,8 @@
 
 Simple tool to extract default resource pack from a Minecraft jar.
 
+![Preview image](http://i.imgur.com/DevQPbk.png)
+
 ## Usage
 1. Download latest Minecraft client jar [here](https://mcversions.net/)
 1. Download and extract [latest release](https://github.com/SavageCore/extract-resource-pack/releases/latest)
