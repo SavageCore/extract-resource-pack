@@ -2,8 +2,8 @@ const path = require('path');
 const url = require('url');
 
 const {
-app,
-BrowserWindow
+	app,
+	BrowserWindow
 } = require('electron');
 
 let mainWindow;

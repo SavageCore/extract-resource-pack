@@ -1,8 +1,8 @@
 const fs = require('fs');
 const path = require('path');
 const {
-app,
-shell
+	app,
+	shell
 } = require('electron').remote;
 const JSZip = require('jszip');
 const walk = require('walk');
@@ -61,7 +61,7 @@ function handleFileSelection(e) {
 	}).then(data => JSZip.loadAsync(data)).then(zip => {
 		const tmpPath = `${app.getPath('temp')}\\erp`;
 		zip.folder('assets').forEach((relativePath, file) => {
-    // Extract all files to temp directory
+			// Extract all files to temp directory
 			const dest = path.join(tmpPath, file.name);
 			ensureDirectoryExistence(dest);
 			fs.writeFileSync(dest, file.nodeStream().pipe(fs.createWriteStream(dest)));
@@ -74,12 +74,12 @@ function handleFileSelection(e) {
 			element.innerText = 'Building resource pack';
 			element.className += ' loading';
 			const folder = newRP.folder(path.relative(`${app.getPath('temp')}/erp`, `${root}/${stat.name}`));
-      // Walk the folder for files
+			// Walk the folder for files
 			fs.readdir(`${root}/${stat.name}`, (err, files) => {
 				if (err) {
 					return;
 				}
-        // Walk files in directory
+				// Walk files in directory
 				files.forEach(file => {
 					const currentFP = `${root}/${stat.name}/${file}`;
 					if (fs.statSync(currentFP).isDirectory()) {
