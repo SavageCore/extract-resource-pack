@@ -1,5 +1,7 @@
 # Extract Resource Pack
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/SavageCore/extract-resource-pack.svg)](https://greenkeeper.io/)
+
 [![Mac/Linux build  Status](https://travis-ci.org/SavageCore/extract-resource-pack.svg?branch=master)](https://travis-ci.org/SavageCore/extract-resource-pack) [![Windows build status](https://ci.appveyor.com/api/projects/status/24p14t1j52ee5kaw?svg=true)](https://ci.appveyor.com/project/SavageCore/extract-resource-pack) [![GitHub license](https://img.shields.io/badge/license-Unlicense-blue.svg)](https://raw.githubusercontent.com/SavageCore/extract-resource-pack/master/LICENSE.md) [![XO code style](https://img.shields.io/badge/code_style-XO-5ed9c7.svg)](https://github.com/sindresorhus/xo) [![Dependencies Status](https://david-dm.org/SavageCore/extract-resource-pack/status.svg)](https://david-dm.org/SavageCore/extract-resource-pack)
 
 Simple tool to extract default resource pack from a Minecraft jar.
