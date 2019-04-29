@@ -102,7 +102,7 @@ function handleFileSelection(e) {
 			newRP.generateNodeStream({
 				type: 'nodebuffer',
 				streamFiles: true
-			}).pipe(fs.createWriteStream('default.zip')).on('finish', () => {
+			}).pipe(fs.createWriteStream('default_resourcepack.zip')).on('finish', () => {
 				element.innerText = 'Done!';
 				element.className = 'noselect';
 				shell.showItemInFolder(`${process.cwd()}/default_resourcepack.zip`);
