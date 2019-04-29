@@ -1,10 +1,10 @@
 if [ ${TRAVIS_TAG} ]; then
-  mkdir out;
-  cd out;
-  git clone https://github.com/electron-userland/electron-forge.git;
-  cd electron-forge;
-  npm install;
-  npm link;
-  cd ../..;
-  electron-forge publish;
+  mkdir out
+  cd out
+  # git clone https://github.com/electron-userland/electron-forge.git;
+  # cd electron-forge;
+  # npm install;
+  # npm link;
+  # cd ../..;
+  electron-forge publish
 fi
