@@ -12,6 +12,3 @@ before_script:
 
 script:
  - npm run test
-
-after_script:
- - ./ci/travis.sh
