@@ -7,6 +7,9 @@ const {
 const JSZip = require('jszip');
 const walk = require('walk');
 const del = require('del');
+const homeOrTmp = require('home-or-tmp');
+
+const outputPath = `${homeOrTmp}/default_resourcepack.zip`;
 
 /* global document */
 
@@ -53,13 +56,13 @@ function handleFileSelection(e) {
 	new JSZip.external.Promise((resolve, reject) => {
 		fs.readFile(inputFiles[0].path, (err, data) => {
 			if (err) {
-				reject(e);
+				reject(err);
 			} else {
 				resolve(data);
 			}
 		});
 	}).then(data => JSZip.loadAsync(data)).then(zip => {
-		const tmpPath = `${app.getPath('temp')}\\erp`;
+		const tmpPath = `${app.getPath('temp')}/erp`;
 		zip.folder('assets').forEach((relativePath, file) => {
 			// Extract all files to temp directory
 			const dest = path.join(tmpPath, file.name);
@@ -102,10 +105,10 @@ function handleFileSelection(e) {
 			newRP.generateNodeStream({
 				type: 'nodebuffer',
 				streamFiles: true
-			}).pipe(fs.createWriteStream('default_resourcepack.zip')).on('finish', () => {
+			}).pipe(fs.createWriteStream(outputPath)).on('finish', () => {
 				element.innerText = 'Done!';
 				element.className = 'noselect';
-				shell.showItemInFolder(`${process.cwd()}/default_resourcepack.zip`);
+				shell.showItemInFolder(outputPath);
 				setTimeout(() => {
 					element.innerText = 'Drop client jar here';
 				}, 3000);
