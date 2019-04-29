@@ -18,6 +18,7 @@ function ensureDirectoryExistence(filePath) {
 	if (fs.existsSync(dirname)) {
 		return;
 	}
+
 	ensureDirectoryExistence(dirname);
 	fs.mkdirSync(dirname);
 }
@@ -25,14 +26,14 @@ function ensureDirectoryExistence(filePath) {
 function handleDragOver(e) {
 	e.stopPropagation();
 	e.preventDefault();
-	const element = document.getElementById('statusBox');
+	const element = document.querySelector('#statusBox');
 	element.innerText = 'Let it go!';
 }
 
 function handleDragLeave(e) {
 	e.stopPropagation();
 	e.preventDefault();
-	const element = document.getElementById('statusBox');
+	const element = document.querySelector('#statusBox');
 	element.innerText = 'Drop client jar here';
 }
 
@@ -44,7 +45,7 @@ function handleFileSelection(e) {
 
 	const newRP = new JSZip();
 
-	const element = document.getElementById('statusBox');
+	const element = document.querySelector('#statusBox');
 
 	element.innerText = 'Clearing temp folder';
 	element.className += ' loading';
@@ -82,12 +83,14 @@ function handleFileSelection(e) {
 				if (err) {
 					return;
 				}
+
 				// Walk files in directory
 				files.forEach(file => {
 					const currentFP = `${root}/${stat.name}/${file}`;
 					if (fs.statSync(currentFP).isDirectory()) {
 						return;
 					}
+
 					folder.file(file, fs.readFileSync(currentFP));
 				});
 			});
@@ -99,9 +102,11 @@ function handleFileSelection(e) {
 			if (fs.existsSync(mcmeta)) {
 				newRP.file('pack.mcmeta', fs.readFileSync(mcmeta));
 			}
+
 			if (fs.existsSync(packimg)) {
 				newRP.file('pack.png', fs.readFileSync(packimg));
 			}
+
 			newRP.generateNodeStream({
 				type: 'nodebuffer',
 				streamFiles: true
@@ -118,6 +123,6 @@ function handleFileSelection(e) {
 }
 
 // Set up the file drag and drop listeners:
-document.getElementsByClassName('content')[0].addEventListener('dragover', handleDragOver, false);
-document.getElementsByClassName('content')[0].addEventListener('dragleave', handleDragLeave, false);
-document.getElementsByClassName('content')[0].addEventListener('drop', handleFileSelection, false);
+document.querySelectorAll('.content')[0].addEventListener('dragover', handleDragOver, false);
+document.querySelectorAll('.content')[0].addEventListener('dragleave', handleDragLeave, false);
+document.querySelectorAll('.content')[0].addEventListener('drop', handleFileSelection, false);
