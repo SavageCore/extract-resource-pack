@@ -45,7 +45,7 @@
     "electron-prebuilt-compile": "4.0.0",
     "file-saver": "^2.0.1",
     "home-or-tmp": "^3.0.0",
-    "jszip": "^3.2.1",
+    "jszip": "^3.7.0",
     "walk": "^2.3.14"
   },
   "config": {
